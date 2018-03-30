@@ -29,8 +29,8 @@ void SI4463_SetDeviceState(SI4463_HandleTypeDef *hradio, uint8_t state);
 
 void SI4463_StartTX(SI4463_HandleTypeDef *hradio, uint8_t channel, size_t size);
 void SI4463_StartRX(SI4463_HandleTypeDef *hradio, uint8_t channel, size_t size);
-void SI4463_WriteTxFifo(SI4463_HandleTypeDef *hradio, uint8_t *buffer, size_t size);
-void SI4463_ReadRxFifo(SI4463_HandleTypeDef *hradio, uint8_t *buffer, size_t size);
+void SI4463_WriteTxFifo(SI4463_HandleTypeDef *hradio, void *buffer, size_t size);
+void SI4463_ReadRxFifo(SI4463_HandleTypeDef *hradio, void *buffer, size_t size);
 
 #ifdef __cplusplus
 }
