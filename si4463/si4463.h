@@ -8,10 +8,13 @@
 extern "C" {
 #endif /* __cplusplus */
 
-extern void SendCommand(uint8_t Command, uint8_t *Buffer, size_t NumBytes);
-extern void RecvCommand(uint8_t Command, uint8_t *Buffer, size_t NumBytes);
-
 void SI4463_RadioConfig(SI4463_HandleTypeDef *hradio, uint8_t *buffer);
+
+//*************************************************************************************//
+
+void SI4463_PowerDisable(SI4463_HandleTypeDef *hradio);
+void SI4463_PowerEnable(SI4463_HandleTypeDef *hradio);
+void SI4463_Reset(SI4463_HandleTypeDef *hradio);
 
 //*************************************************************************************//
 

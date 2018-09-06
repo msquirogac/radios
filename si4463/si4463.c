@@ -12,6 +12,27 @@ void SI4463_RadioConfig(SI4463_HandleTypeDef *hradio, uint8_t *buffer)
 
 //*************************************************************************************//
 
+void SI4463_PowerDisable(SI4463_HandleTypeDef *hradio)
+{
+  SI4463_PowerHandler pwr = hradio->HAL.Power;
+  pwr(0);
+}
+
+void SI4463_PowerEnable(SI4463_HandleTypeDef *hradio)
+{
+  SI4463_PowerHandler pwr = hradio->HAL.Power;
+  pwr(1);
+}
+
+void SI4463_Reset(SI4463_HandleTypeDef *hradio)
+{
+  SI4463_PowerHandler pwr = hradio->HAL.Power;
+  pwr(0);
+  pwr(1);
+}
+
+//*************************************************************************************//
+
 void SI4463_PartInfo(SI4463_HandleTypeDef *hradio, uint8_t *buffer)
 {
   SI4463_CommandHandler cmd = hradio->HAL.Command;
