@@ -4,6 +4,10 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
+
 typedef void (*NRF24_CommandHandler)(uint8_t Command, uint8_t *Buffer, size_t NumBytes);
 typedef void (*NRF24_PowerHandler)(uint8_t State);
 
