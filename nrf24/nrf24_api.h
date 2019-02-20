@@ -54,24 +54,31 @@
 #define CONFIG_PRIM_RX			0x01
 
 /****************************************************************/
-/* RF_SETUP register bitwise definitions */
-#define RF_SETUP_RESERVED		0xE0
-#define RF_SETUP_PLL_LOCK		0x10
-#define RF_SETUP_RF_DR			0x28
-#define RF_SETUP_RF_DR_250	0x20
-#define RF_SETUP_RF_DR_1000	0x00
-#define RF_SETUP_RF_DR_2000	0x08
-#define RF_SETUP_RF_PWR			0x06
-#define RF_SETUP_RF_PWR_0		0x06
-#define RF_SETUP_RF_PWR_6		0x04
-#define RF_SETUP_RF_PWR_12	0x02
-#define RF_SETUP_RF_PWR_18	0x00
+/* EN_AA register bit definitions */
+#define EN_AA_ENAA_RESERVED 0xC0
+#define EN_AA_ENAA_P5       0x20
+#define EN_AA_ENAA_P4       0x10
+#define EN_AA_ENAA_P3       0x08
+#define EN_AA_ENAA_P2       0x04
+#define EN_AA_ENAA_P1       0x02
+#define EN_AA_ENAA_P0       0x01
 
 /****************************************************************/
-/* FEATURE register bitwise definitions */
-#define FEATURE_EN_DPL			0x04
-#define FEATURE_EN_ACK_PAY	0x02
-#define FEATURE_EN_DYN_ACK	0x01
+/* EN_RXADDR register bit definitions */
+#define EN_RXADDR_RESERVED  0xC0
+#define EN_RXADDR_ERX_P5    0x20
+#define EN_RXADDR_ERX_P4    0x10
+#define EN_RXADDR_ERX_P3    0x08
+#define EN_RXADDR_ERX_P2    0x04
+#define EN_RXADDR_ERX_P1    0x02
+#define EN_RXADDR_ERX_P0    0x01
+
+/****************************************************************/
+/* SETUP_AW register bit definitions */
+#define SETUP_AW_RESERVED   0x3F
+#define SETUP_AW_ADRW_3B    0x01
+#define SETUP_AW_ADRW_4B    0x02
+#define SETUP_AW_ADRW_5B    0x03
 
 /****************************************************************/
 /* SETUP_RETR register bitwise definitions */
@@ -92,41 +99,67 @@
 #define SETUP_RETR_ARD_750	0x20 /* 750 us retry delay */
 #define SETUP_RETR_ARD_500	0x10 /* 500 us retry delay */
 #define SETUP_RETR_ARD_250	0x00 /* 250 us retry delay */
-#define SETUP_RETR_ARC		0x0F
-#define SETUP_RETR_ARC_15	0x0F /* 15 retry count */
-#define SETUP_RETR_ARC_14	0x0E /* 14 retry count */
-#define SETUP_RETR_ARC_13	0x0D /* 13 retry count */
-#define SETUP_RETR_ARC_12	0x0C /* 12 retry count */
-#define SETUP_RETR_ARC_11	0x0B /* 11 retry count */
-#define SETUP_RETR_ARC_10	0x0A /* 10 retry count */
-#define SETUP_RETR_ARC_9	0x09 /* 9 retry count */
-#define SETUP_RETR_ARC_8	0x08 /* 8 retry count */
-#define SETUP_RETR_ARC_7	0x07 /* 7 retry count */
-#define SETUP_RETR_ARC_6	0x06 /* 6 retry count */
-#define SETUP_RETR_ARC_5	0x05 /* 5 retry count */
-#define SETUP_RETR_ARC_4	0x04 /* 4 retry count */
-#define SETUP_RETR_ARC_3	0x03 /* 3 retry count */
-#define SETUP_RETR_ARC_2	0x02 /* 2 retry count */
-#define SETUP_RETR_ARC_1	0x01 /* 1 retry count */
-#define SETUP_RETR_ARC_0	0x00 /* 0 retry count, retry disabled */
+#define SETUP_RETR_ARC		  0x0F
+#define SETUP_RETR_ARC_15	  0x0F /* 15 retry count */
+#define SETUP_RETR_ARC_14  	0x0E /* 14 retry count */
+#define SETUP_RETR_ARC_13	  0x0D /* 13 retry count */
+#define SETUP_RETR_ARC_12  	0x0C /* 12 retry count */
+#define SETUP_RETR_ARC_11  	0x0B /* 11 retry count */
+#define SETUP_RETR_ARC_10  	0x0A /* 10 retry count */
+#define SETUP_RETR_ARC_9	  0x09 /* 9 retry count */
+#define SETUP_RETR_ARC_8  	0x08 /* 8 retry count */
+#define SETUP_RETR_ARC_7	  0x07 /* 7 retry count */
+#define SETUP_RETR_ARC_6	  0x06 /* 6 retry count */
+#define SETUP_RETR_ARC_5	  0x05 /* 5 retry count */
+#define SETUP_RETR_ARC_4	  0x04 /* 4 retry count */
+#define SETUP_RETR_ARC_3	  0x03 /* 3 retry count */
+#define SETUP_RETR_ARC_2	  0x02 /* 2 retry count */
+#define SETUP_RETR_ARC_1	  0x01 /* 1 retry count */
+#define SETUP_RETR_ARC_0	  0x00 /* 0 retry count, retry disabled */
 
 /****************************************************************/
-/* EN_RXADDR register bit definitions */
-#define EN_RXADDR_ERX_P5  0x20
-#define EN_RXADDR_ERX_P4  0x10
-#define EN_RXADDR_ERX_P3  0x08
-#define EN_RXADDR_ERX_P2  0x04
-#define EN_RXADDR_ERX_P1  0x02
-#define EN_RXADDR_ERX_P0  0x01
+/* RF_CH register bitwise definitions */
+#define RF_CH_RESERVED	  	0x80
+
+/****************************************************************/
+/* RF_SETUP register bitwise definitions */
+#define RF_SETUP_RESERVED		0xE0
+#define RF_SETUP_PLL_LOCK		0x10
+#define RF_SETUP_RF_DR			0x28
+#define RF_SETUP_RF_DR_250	0x20
+#define RF_SETUP_RF_DR_1000	0x00
+#define RF_SETUP_RF_DR_2000	0x08
+#define RF_SETUP_RF_PWR			0x06
+#define RF_SETUP_RF_PWR_0		0x06
+#define RF_SETUP_RF_PWR_6		0x04
+#define RF_SETUP_RF_PWR_12	0x02
+#define RF_SETUP_RF_PWR_18	0x00
+
+/****************************************************************/
+/* DYNPD register bitwise definitions */
+#define DYNPD_RESERVED		  0xC0
+#define DYNPD_DPL_P5		    0x20
+#define DYNPD_DPL_P4		    0x10
+#define DYNPD_DPL_P3		    0x08
+#define DYNPD_DPL_P2		    0x04
+#define DYNPD_DPL_P1		    0x02
+#define DYNPD_DPL_P0		    0x01
+
+/****************************************************************/
+/* FEATURE register bitwise definitions */
+#define FEATURE_RESERVED		0xF8
+#define FEATURE_EN_DPL			0x04
+#define FEATURE_EN_ACK_PAY	0x02
+#define FEATURE_EN_DYN_ACK	0x01
 
 /****************************************************************/
 /* STATUS register bit definitions */
-#define STATUS_RESERVED	0x80 /* bit 1xxx xxxx: This bit is reserved */
-#define STATUS_RX_DR		0x40 /* bit x1xx xxxx: Data ready RX FIFO interrupt. Asserted when new data arrives RX FIFO */
-#define STATUS_TX_DS		0x20 /* bit xx1x xxxx: Data sent TX FIFO interrupt. Asserted when packet transmitted on TX. */
-#define STATUS_MAX_RT		0x10 /* bit xxx1 xxxx: maximum number of TX retransmit interrupts */
-#define STATUS_TX_FULL	0x01 /* bit xxxx xxx1: if bit set, then TX FIFO is full */
-#define STATUS_RX_P_NO	0x0E
+#define STATUS_RESERVED	    0x80 /* bit 1xxx xxxx: This bit is reserved */
+#define STATUS_RX_DR		    0x40 /* bit x1xx xxxx: Data ready RX FIFO interrupt. Asserted when new data arrives RX FIFO */
+#define STATUS_TX_DS		    0x20 /* bit xx1x xxxx: Data sent TX FIFO interrupt. Asserted when packet transmitted on TX. */
+#define STATUS_MAX_RT		    0x10 /* bit xxx1 xxxx: maximum number of TX retransmit interrupts */
+#define STATUS_TX_FULL	    0x01 /* bit xxxx xxx1: if bit set, then TX FIFO is full */
+#define STATUS_RX_P_NO	    0x0E
 
 /****************************************************************/
 /* FIFO_STATUS register bit definitions */
