@@ -48,6 +48,16 @@ void NRF24_Init(NRF24_HandleTypeDef *hradio)
   cmd(CMD_W_REGISTER + REG_FEATURE, &tmpreg, 1);
 }
 
+void NRF24_Reset(NRF24_HandleTypeDef *hradio)
+{
+  NRF24_CommandHandler cmd = hradio->HAL.Command;
+  uint8_t tmpreg;
+  NRF24_PowerDown(hradio);
+  NRF24_TxFlush(hradio);
+  NRF24_RxFlush(hradio);
+  NRF24_SetStatus(hradio, STATUS_MAX_RT|STATUS_RX_DR|STATUS_TX_DS);
+}
+
 void NRF24_SetTxAddress(NRF24_HandleTypeDef *hradio, uint8_t *address, size_t size)
 {
   NRF24_CommandHandler cmd = hradio->HAL.Command;

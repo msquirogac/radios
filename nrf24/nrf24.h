@@ -15,6 +15,7 @@ void NRF24_RadioConfig(NRF24_HandleTypeDef *hradio, uint8_t *buffer);
 //*************************************************************************************//
 
 void NRF24_Init(NRF24_HandleTypeDef *hradio);
+void NRF24_Reset(NRF24_HandleTypeDef *hradio);
 void NRF24_SetTxAddress(NRF24_HandleTypeDef *hradio, uint8_t *address, size_t size);
 void NRF24_SetRxAddress(NRF24_HandleTypeDef *hradio, uint8_t *address, size_t size);
 void NRF24_SetRxPayloadSize(NRF24_HandleTypeDef *hradio, uint8_t size);
