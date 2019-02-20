@@ -35,6 +35,7 @@ void NRF24_RxMode(NRF24_HandleTypeDef *hradio);
 void NRF24_TxMode(NRF24_HandleTypeDef *hradio);
 void NRF24_RxPacket(NRF24_HandleTypeDef *hradio, void *buffer, size_t size);
 void NRF24_TxPacket(NRF24_HandleTypeDef *hradio, void *buffer, size_t size);
+void NRF24_TxPacketNACK(NRF24_HandleTypeDef *hradio, void *buffer, size_t size);
 
 //*************************************************************************************//
 
