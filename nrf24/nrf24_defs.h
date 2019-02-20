@@ -19,11 +19,6 @@ typedef struct
 
 typedef struct
 {
-  uint8_t Config;
-  uint8_t RF_Setup;
-  uint8_t Feature;
-  uint8_t Auto_Ack;
-  uint8_t En_RxAddr;
 } NRF24_InitTypeDef;
 
 typedef struct

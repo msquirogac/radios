@@ -110,6 +110,14 @@
 #define SETUP_RETR_ARC_1	0x01 /* 1 retry count */
 #define SETUP_RETR_ARC_0	0x00 /* 0 retry count, retry disabled */
 
+/****************************************************************/
+/* EN_RXADDR register bit definitions */
+#define EN_RXADDR_ERX_P5  0x20
+#define EN_RXADDR_ERX_P4  0x10
+#define EN_RXADDR_ERX_P3  0x08
+#define EN_RXADDR_ERX_P2  0x04
+#define EN_RXADDR_ERX_P1  0x02
+#define EN_RXADDR_ERX_P0  0x01
 
 /****************************************************************/
 /* STATUS register bit definitions */

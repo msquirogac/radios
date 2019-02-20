@@ -1,5 +1,32 @@
 #include "nrf24.h"
 
+void NRF24_SetRegister(NRF24_HandleTypeDef *hradio, uint8_t address, uint8_t value)
+{
+  NRF24_CommandHandler cmd = hradio->HAL.Command;
+  uint8_t tmpreg;
+  cmd(CMD_W_REGISTER + address, &value, 1);
+}
+
+uint8_t NRF24_GetRegister(NRF24_HandleTypeDef *hradio, uint8_t address)
+{
+  NRF24_CommandHandler cmd = hradio->HAL.Command;
+  uint8_t tmpreg;
+  cmd(CMD_R_REGISTER + address, &tmpreg, 1);
+  return tmpreg;
+}
+
+void NRF24_RadioConfig(NRF24_HandleTypeDef *hradio, uint8_t *buffer)
+{
+  NRF24_CommandHandler cmd = hradio->HAL.Command;
+  while(buffer[0] != 0)
+  {
+    cmd(CMD_W_REGISTER + buffer[1], &buffer[2], buffer[0]);
+    buffer += buffer[0] + 2;
+  }
+}
+
+//*************************************************************************************//
+
 void NRF24_Init(NRF24_HandleTypeDef *hradio)
 {
   NRF24_CommandHandler cmd = hradio->HAL.Command;
@@ -7,16 +34,18 @@ void NRF24_Init(NRF24_HandleTypeDef *hradio)
   NRF24_InitTypeDef *init = &hradio->Init;
   uint8_t tmpreg;
   pwr(0);
-  tmpreg = init->Config;
+  tmpreg = CONFIG_EN_CRC | CONFIG_CRCO;
   cmd(CMD_W_REGISTER + REG_CONFIG, &tmpreg, 1);
-  tmpreg = init->RF_Setup;
-  cmd(CMD_W_REGISTER + REG_RF_SETUP, &tmpreg, 1);
-  tmpreg = init->Feature;
-  cmd(CMD_W_REGISTER + REG_FEATURE, &tmpreg, 1);
-  tmpreg = init->Auto_Ack;
+  tmpreg = 0x00;
   cmd(CMD_W_REGISTER + REG_EN_AA, &tmpreg, 1);
-  tmpreg = init->En_RxAddr;
+  tmpreg = EN_RXADDR_ERX_P0;
   cmd(CMD_W_REGISTER + REG_EN_RXADDR, &tmpreg, 1);
+  tmpreg = SETUP_RETR_ARD_500 | SETUP_RETR_ARC_5;
+  cmd(CMD_W_REGISTER + REG_SETUP_RETR, &tmpreg, 1);
+  tmpreg = RF_SETUP_RF_DR_250 | RF_SETUP_RF_PWR_0;
+  cmd(CMD_W_REGISTER + REG_RF_SETUP, &tmpreg, 1);
+  tmpreg = 0x00;
+  cmd(CMD_W_REGISTER + REG_FEATURE, &tmpreg, 1);
 }
 
 void NRF24_SetTxAddress(NRF24_HandleTypeDef *hradio, uint8_t *address, size_t size)
@@ -31,28 +60,16 @@ void NRF24_SetRxAddress(NRF24_HandleTypeDef *hradio, uint8_t *address, size_t si
   cmd(CMD_W_REGISTER + REG_RX_ADDR_P0, address, size);
 }
 
+void NRF24_SetRxPayloadSize(NRF24_HandleTypeDef *hradio, uint8_t size)
+{
+  NRF24_CommandHandler cmd = hradio->HAL.Command;
+  cmd(CMD_W_REGISTER + REG_RX_PW_P0, &size, 1);
+}
+
 void NRF24_SetChannel(NRF24_HandleTypeDef *hradio, uint8_t channel)
 {
   NRF24_CommandHandler cmd = hradio->HAL.Command;
   cmd(CMD_W_REGISTER + REG_RF_CH, &channel, 1);
-}
-
-void NRF24_SetRxEnable(NRF24_HandleTypeDef *hradio, uint8_t config)
-{
-  NRF24_CommandHandler cmd = hradio->HAL.Command;
-  cmd(CMD_W_REGISTER + REG_EN_RXADDR, &config, 1);
-}
-
-void NRF24_SetAutoAck(NRF24_HandleTypeDef *hradio, uint8_t config)
-{
-  NRF24_CommandHandler cmd = hradio->HAL.Command;
-  cmd(CMD_W_REGISTER + REG_EN_AA, &config, 1);
-}
-
-void NRF24_SetPayloadSize(NRF24_HandleTypeDef *hradio, uint8_t size)
-{
-  NRF24_CommandHandler cmd = hradio->HAL.Command;
-  cmd(CMD_W_REGISTER + REG_RX_PW_P0, &size, 1);
 }
 
 void NRF24_SetStatus(NRF24_HandleTypeDef *hradio, uint8_t status)
@@ -67,19 +84,11 @@ void NRF24_SetFifoStatus(NRF24_HandleTypeDef *hradio, uint8_t status)
   cmd(CMD_W_REGISTER + REG_FIFO_STATUS, &status, 1);
 }
 
-uint8_t NRF24_GetPayloadSize(NRF24_HandleTypeDef *hradio)
+uint8_t NRF24_GetRxPayloadSize(NRF24_HandleTypeDef *hradio)
 {
   NRF24_CommandHandler cmd = hradio->HAL.Command;
   uint8_t tmpreg;
   cmd(CMD_R_RX_PL_WID, &tmpreg, 1);
-  return tmpreg;
-}
-
-uint8_t NRF24_GetStatus(NRF24_HandleTypeDef *hradio)
-{
-  NRF24_CommandHandler cmd = hradio->HAL.Command;
-  uint8_t tmpreg;
-  cmd(CMD_R_REGISTER + REG_STATUS, &tmpreg, 1);
   return tmpreg;
 }
 
@@ -88,6 +97,14 @@ uint8_t NRF24_GetFifoStatus(NRF24_HandleTypeDef *hradio)
   NRF24_CommandHandler cmd = hradio->HAL.Command;
   uint8_t tmpreg;
   cmd(CMD_R_REGISTER + REG_FIFO_STATUS, &tmpreg, 1);
+  return tmpreg;
+}
+
+uint8_t NRF24_GetStatus(NRF24_HandleTypeDef *hradio)
+{
+  NRF24_CommandHandler cmd = hradio->HAL.Command;
+  uint8_t tmpreg;
+  cmd(CMD_R_REGISTER + REG_STATUS, &tmpreg, 1);
   return tmpreg;
 }
 
