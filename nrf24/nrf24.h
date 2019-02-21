@@ -25,6 +25,7 @@ void NRF24_SetFifoStatus(NRF24_HandleTypeDef *hradio, uint8_t status);
 uint8_t NRF24_GetRxPayloadSize(NRF24_HandleTypeDef *hradio);
 uint8_t NRF24_GetFifoStatus(NRF24_HandleTypeDef *hradio);
 uint8_t NRF24_GetStatus(NRF24_HandleTypeDef *hradio);
+uint8_t NRF24_GetIRQ(NRF24_HandleTypeDef *hradio);
 void NRF24_PowerUp(NRF24_HandleTypeDef *hradio);
 void NRF24_PowerDown(NRF24_HandleTypeDef *hradio);
 void NRF24_RadioStart(NRF24_HandleTypeDef *hradio);

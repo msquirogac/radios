@@ -10,11 +10,13 @@ extern "C" {
 
 typedef void (*NRF24_CommandHandler)(uint8_t Command, uint8_t *Buffer, size_t NumBytes);
 typedef void (*NRF24_PowerHandler)(uint8_t State);
+typedef uint32_t (*NRF24_InterruptHandler)(void);
 
 typedef struct
 {
   const NRF24_CommandHandler Command;
   const NRF24_PowerHandler Power;
+  const NRF24_InterruptHandler Interrupt;
 } NRF24_HalTypeDef;
 
 typedef struct

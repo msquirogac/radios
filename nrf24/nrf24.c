@@ -118,6 +118,12 @@ uint8_t NRF24_GetStatus(NRF24_HandleTypeDef *hradio)
   return tmpreg;
 }
 
+uint8_t NRF24_GetIRQ(NRF24_HandleTypeDef *hradio)
+{
+  NRF24_InterruptHandler irq = hradio->HAL.Interrupt;
+  return irq() ? 0 : 1;
+}
+
 void NRF24_PowerUp(NRF24_HandleTypeDef *hradio)
 {
   NRF24_CommandHandler cmd = hradio->HAL.Command;
