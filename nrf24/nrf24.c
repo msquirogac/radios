@@ -3,7 +3,6 @@
 void NRF24_SetRegister(NRF24_HandleTypeDef *hradio, uint8_t address, uint8_t value)
 {
   NRF24_CommandHandler cmd = hradio->HAL.Command;
-  uint8_t tmpreg;
   cmd(CMD_W_REGISTER + address, &value, 1);
 }
 
@@ -31,7 +30,6 @@ void NRF24_Init(NRF24_HandleTypeDef *hradio)
 {
   NRF24_CommandHandler cmd = hradio->HAL.Command;
   NRF24_PowerHandler pwr = hradio->HAL.Power;
-  NRF24_InitTypeDef *init = &hradio->Init;
   uint8_t tmpreg;
   pwr(0);
   tmpreg = CONFIG_EN_CRC | CONFIG_CRCO;
@@ -50,8 +48,6 @@ void NRF24_Init(NRF24_HandleTypeDef *hradio)
 
 void NRF24_Reset(NRF24_HandleTypeDef *hradio)
 {
-  NRF24_CommandHandler cmd = hradio->HAL.Command;
-  uint8_t tmpreg;
   NRF24_PowerDown(hradio);
   NRF24_TxFlush(hradio);
   NRF24_RxFlush(hradio);
@@ -191,20 +187,17 @@ void NRF24_TxMode(NRF24_HandleTypeDef *hradio)
 void NRF24_RxPacket(NRF24_HandleTypeDef *hradio, void *buffer, size_t size)
 {
   NRF24_CommandHandler cmd = hradio->HAL.Command;
-  uint8_t tmpreg;
   cmd(CMD_R_RX_PAYLOAD, (uint8_t *)buffer, size);
 }
 
 void NRF24_TxPacket(NRF24_HandleTypeDef *hradio, void *buffer, size_t size)
 {
   NRF24_CommandHandler cmd = hradio->HAL.Command;
-  uint8_t tmpreg;
   cmd(CMD_W_TX_PAYLOAD, (uint8_t *)buffer, size);
 }
 
 void NRF24_TxPacketNACK(NRF24_HandleTypeDef *hradio, void *buffer, size_t size)
 {
   NRF24_CommandHandler cmd = hradio->HAL.Command;
-  uint8_t tmpreg;
   cmd(CMD_W_TX_PAYLOAD_NOACK, (uint8_t *)buffer, size);
 }
