@@ -10,7 +10,7 @@ extern "C" {
 
 void NRF24_SetRegister(NRF24_HandleTypeDef *hradio, uint8_t address, uint8_t value);
 uint8_t NRF24_GetRegister(NRF24_HandleTypeDef *hradio, uint8_t address);
-void NRF24_RadioConfig(NRF24_HandleTypeDef *hradio, uint8_t *buffer);
+void NRF24_RadioConfig(NRF24_HandleTypeDef *hradio, void *buffer);
 
 //*************************************************************************************//
 

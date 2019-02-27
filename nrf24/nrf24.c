@@ -8,19 +8,20 @@ void NRF24_SetRegister(NRF24_HandleTypeDef *hradio, uint8_t address, uint8_t val
 
 uint8_t NRF24_GetRegister(NRF24_HandleTypeDef *hradio, uint8_t address)
 {
-  NRF24_CommandHandler cmd = hradio->HAL.Command;
+  NRF24_CommandHandler cmd = hradio->HAL.CommandReturn;
   uint8_t tmpreg;
   cmd(CMD_R_REGISTER + address, &tmpreg, 1);
   return tmpreg;
 }
 
-void NRF24_RadioConfig(NRF24_HandleTypeDef *hradio, uint8_t *buffer)
+void NRF24_RadioConfig(NRF24_HandleTypeDef *hradio, void *buffer)
 {
   NRF24_CommandHandler cmd = hradio->HAL.Command;
-  while(buffer[0] != 0)
+  uint8_t *tmpreg = buffer;
+  while(tmpreg[0] != 0)
   {
-    cmd(CMD_W_REGISTER + buffer[1], &buffer[2], buffer[0]);
-    buffer += buffer[0] + 2;
+    cmd(CMD_W_REGISTER + tmpreg[1], &tmpreg[2], tmpreg[0]);
+    tmpreg += tmpreg[0] + 2;
   }
 }
 
@@ -92,7 +93,7 @@ void NRF24_SetFifoStatus(NRF24_HandleTypeDef *hradio, uint8_t status)
 
 uint8_t NRF24_GetRxPayloadSize(NRF24_HandleTypeDef *hradio)
 {
-  NRF24_CommandHandler cmd = hradio->HAL.Command;
+  NRF24_CommandHandler cmd = hradio->HAL.CommandReturn;
   uint8_t tmpreg;
   cmd(CMD_R_RX_PL_WID, &tmpreg, 1);
   return tmpreg;
@@ -100,7 +101,7 @@ uint8_t NRF24_GetRxPayloadSize(NRF24_HandleTypeDef *hradio)
 
 uint8_t NRF24_GetFifoStatus(NRF24_HandleTypeDef *hradio)
 {
-  NRF24_CommandHandler cmd = hradio->HAL.Command;
+  NRF24_CommandHandler cmd = hradio->HAL.CommandReturn;
   uint8_t tmpreg;
   cmd(CMD_R_REGISTER + REG_FIFO_STATUS, &tmpreg, 1);
   return tmpreg;
@@ -108,7 +109,7 @@ uint8_t NRF24_GetFifoStatus(NRF24_HandleTypeDef *hradio)
 
 uint8_t NRF24_GetStatus(NRF24_HandleTypeDef *hradio)
 {
-  NRF24_CommandHandler cmd = hradio->HAL.Command;
+  NRF24_CommandHandler cmd = hradio->HAL.CommandReturn;
   uint8_t tmpreg;
   cmd(CMD_R_REGISTER + REG_STATUS, &tmpreg, 1);
   return tmpreg;
@@ -122,7 +123,7 @@ uint8_t NRF24_GetIRQ(NRF24_HandleTypeDef *hradio)
 
 void NRF24_PowerUp(NRF24_HandleTypeDef *hradio)
 {
-  NRF24_CommandHandler cmd = hradio->HAL.Command;
+  NRF24_CommandHandler cmd = hradio->HAL.CommandReturn;
   NRF24_PowerHandler pwr = hradio->HAL.Power;
   uint8_t tmpreg;
   pwr(0);
@@ -133,7 +134,7 @@ void NRF24_PowerUp(NRF24_HandleTypeDef *hradio)
 
 void NRF24_PowerDown(NRF24_HandleTypeDef *hradio)
 {
-  NRF24_CommandHandler cmd = hradio->HAL.Command;
+  NRF24_CommandHandler cmd = hradio->HAL.CommandReturn;
   NRF24_PowerHandler pwr = hradio->HAL.Power;
   uint8_t tmpreg;
   pwr(0);
@@ -168,7 +169,7 @@ void NRF24_TxFlush(NRF24_HandleTypeDef *hradio)
 
 void NRF24_RxMode(NRF24_HandleTypeDef *hradio)
 {
-  NRF24_CommandHandler cmd = hradio->HAL.Command;
+  NRF24_CommandHandler cmd = hradio->HAL.CommandReturn;
   uint8_t tmpreg;
   cmd(CMD_R_REGISTER + REG_CONFIG, &tmpreg, 1);
   tmpreg |= CONFIG_PRIM_RX;
@@ -177,7 +178,7 @@ void NRF24_RxMode(NRF24_HandleTypeDef *hradio)
 
 void NRF24_TxMode(NRF24_HandleTypeDef *hradio)
 {
-  NRF24_CommandHandler cmd = hradio->HAL.Command;
+  NRF24_CommandHandler cmd = hradio->HAL.CommandReturn;
   uint8_t tmpreg;
   cmd(CMD_R_REGISTER + REG_CONFIG, &tmpreg, 1);
   tmpreg &= ~CONFIG_PRIM_RX;
@@ -186,7 +187,7 @@ void NRF24_TxMode(NRF24_HandleTypeDef *hradio)
 
 void NRF24_RxPacket(NRF24_HandleTypeDef *hradio, void *buffer, size_t size)
 {
-  NRF24_CommandHandler cmd = hradio->HAL.Command;
+  NRF24_CommandHandler cmd = hradio->HAL.CommandReturn;
   cmd(CMD_R_RX_PAYLOAD, (uint8_t *)buffer, size);
 }
 

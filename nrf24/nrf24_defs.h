@@ -15,6 +15,7 @@ typedef uint32_t (*NRF24_InterruptHandler)(void);
 typedef struct
 {
   const NRF24_CommandHandler Command;
+  const NRF24_CommandHandler CommandReturn;
   const NRF24_PowerHandler Power;
   const NRF24_InterruptHandler Interrupt;
 } NRF24_HalTypeDef;
